@@ -24,9 +24,9 @@ pub fn build(b: *std.Build) !void {
     });
 
     if (target.result.os.tag == .windows) {
-        lib.defineCMacro("_WINDOWS", null);
-        lib.defineCMacro("_WIN32", null);
-        lib.defineCMacro("OPENDDL_STATIC_LIBARY", null);
+        lib.root_module.addCMacro("_WINDOWS", "");
+        lib.root_module.addCMacro("_WIN32", "");
+        lib.root_module.addCMacro("OPENDDL_STATIC_LIBARY", "");
     }
 
     lib.linkLibC();
@@ -54,7 +54,7 @@ pub fn build(b: *std.Build) !void {
     lib.addIncludePath(assimp.path("contrib/zlib"));
     lib.addIncludePath(assimp.path("contrib/openddlparser/include"));
 
-    lib.defineCMacro("RAPIDJSON_HAS_STDSTRING", "1");
+    lib.root_module.addCMacro("RAPIDJSON_HAS_STDSTRING", "1");
 
     lib.installConfigHeader(config_h);
     lib.installHeadersDirectory(
